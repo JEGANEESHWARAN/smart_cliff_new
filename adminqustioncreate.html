@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./images/logo.png" type="image/png">
+    <link rel="stylesheet" href="adminqustioncreate.css">
+    <title>Online Assessment</title>
+
+    <script>
+        function hidePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        function showPopup() {
+            document.getElementById("popup").style.display = "block";
+        }
+        function hidePopup1() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        function showPopup1() {
+            document.getElementById("popup1").style.display = "block";
+        }
+
+        function saveQuestions() {
+            const questions = [];
+            document.querySelectorAll('.question-section').forEach(section => {
+                const questionText = section.querySelector('.question-input').value;
+                const options = Array.from(section.querySelectorAll('.option-input')).map(input => input.value).filter(value => value.trim() !== "");
+                const answer = section.querySelector('.answer-input').value;
+
+                if (questionText.trim() !== "" && options.length > 0 && answer.trim() !== "") {
+                    questions.push({ questionText, options, answer });
+                }
+            });
+
+            if (questions.length === 0) {
+                // alert('Please fill out at least one question');
+                return;
+            }
+
+            localStorage.setItem('questions', JSON.stringify(questions));
+            // alert('Questions saved: ' + JSON.stringify(questions));
+            showPopup1();
+        }
+
+        function addQuestion() {
+            const template = document.getElementById('question-template').content.cloneNode(true);
+            document.getElementById('questions-container').appendChild(template);
+        }
+
+        window.onload = () => {
+            addQuestion();
+
+            document.getElementById('add-question-btn').addEventListener('click', addQuestion);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="right-contain">
+        <div class="q-c">
+            <div class="quiz">
+                <p>QUIZ CREATION</p>
+            </div>
+            <div class="create">
+                <ul>
+                    <li><a href="#" onclick="showPopup()" >Cancel&nbsp;Test</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <center>
+        <div class="bottom">
+            
+            <div id="questions-container">
+                <template id="question-template">
+                    <div class="question-section">
+                        <input type="text" class="question-input" placeholder="Enter Question">
+                        <div class="options-container">
+                            <input type="text" class="option-input" placeholder="Option 1">
+                            <input type="text" class="option-input" placeholder="Option 2">
+                            <input type="text" class="option-input" placeholder="Option 3">
+                            <input type="text" class="option-input" placeholder="Option 4">
+                        </div>
+                        <input type="text" class="answer-input" placeholder="Answer">
+                    </div>
+                </template>
+            </div>
+            <button id="add-question-btn">Add Question</button>
+        </div>
+    </center>
+
+    <div class="next">
+        <button onclick="saveQuestions()">Save Questions</button>
+    </div>
+
+    <div class="pop" id="popup">
+        <div class="mode">
+            <p>Are you sure you want to cancel the test?</p>
+            <button onclick="hidePopup()">No</button>
+            <a href="createadmin.html"><button onclick="logOut()">Yes</button></a>
+        </div>
+    </div>
+    <div class="pop1" id="popup1">
+        <div class="mode1">
+            <p>Are you sure you want to create test?</p>
+            <button onclick="hidePopup1()">No</button>
+            <a href="adim.html"><button onclick="logOut1()">Yes</button></a>
+        </div>
+    </div>
+</body>
+
+</html>
+
+</html>

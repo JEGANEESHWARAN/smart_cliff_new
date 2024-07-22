@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./images/logo.png" type="image/png">
+    <link rel="stylesheet" href="createform.css">
+    <title>Online Assessment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        function goods() {
+            var a = document.getElementById("title").value;
+            var b = document.getElementById("hi").value;
+            var c = document.getElementById("sc").value;
+            var d = document.getElementById("dat").value;
+            var e = document.getElementById("mark").value;
+            var reg = /^[0-9]{1,5}$/;
+            var reg1 = /^[A-Za-z0-9]+$/;
+
+            if (a === "" || b === "" || c === "" || d === "" || e === "") {
+                document.getElementById("test").innerHTML = "Fill the boxes";
+                document.getElementById("test").style.color = "red";
+            } else if (!a.match(reg1)) {
+                document.getElementById("test").innerHTML = "Invalid Test Title";
+                document.getElementById("test").style.color = "red";
+            } else if (!e.match(reg)) {
+                document.getElementById("test").innerHTML = "Invalid Total Mark";
+                document.getElementById("test").style.color = "red";
+            } else {
+                show();
+                // location.replace("adminqustioncreate.html");
+                const user = { title: a, cate: b, subCate: c, date: d, mark: e };
+                const userJson = JSON.stringify(user);
+                localStorage.setItem('user', userJson);
+                
+            }
+            
+        }
+        function hide(){
+                document.getElementById("popup").style.display="none";
+            }
+            function show(){
+                document.getElementById("popup").style.display="block";
+            }
+    </script>
+</head>
+
+<body>
+    <div class="head">
+        <div class="home-img">
+            <img src="./images/logoo.png" alt="pls Wait ...">
+        </div>
+        <div class="hi">
+            <h3>Online Assessment</h3>
+        </div>
+    </div>
+    <section>
+        <div class="contentBx">
+            <div class="formBx">
+                <form action="">
+                    <h2>Create test</h2>
+                    <p id="test"></p>
+                    <div class="inputBx">
+                        <span>Test title</span>
+                        <input type="text" id="title">
+                    </div>
+                    <div class="inputBx">
+                        <span>Categories</span>
+                        <select id="hi">
+                            <option value="Categories">Categories</option>
+                            <option value="Programming">Programming</option>
+                            <option value="Subject">Subject</option>
+                            <option value="Verbal">Verbal</option>
+                            <option value="others">Others</option>
+                        </select>
+                    </div>
+                    <div class="inputBx">
+                        <span>Sub categories</span>
+                        <br>
+                        <input type="text" id="sc">
+                    </div>
+                    <div class="inputBx">
+                        <span>Total mark</span>
+                        <br>
+                        <input type="text" id="mark">
+                    </div>
+                    <div class="inputBx">
+                        <span>Date</span>
+                        <input type="date" id="dat">
+                    </div>
+                    <div class="inputBx">
+                        <span>Description</span>
+                        <br>
+                        <textarea id="hi-1">Write something...!</textarea>
+                    </div>
+                    <div class="inputBx">
+                        <input type="button" value="Create" onclick="goods()">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="pop" id="popup">
+        <div class="mode">        <p>
+            <p>Are you sure you want to create test?</p>
+        </p>
+        <input type="submit" value="cancel" id="cancel" onclick="hide()">
+      <a href="adminqustioncreate.html"><input type="submit" value="Create"></a></div>
+    </div>
+</body>
+
+</html>

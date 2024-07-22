@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./images/logo.png" type="image/png">
+    <link rel="stylesheet" href="display.css">
+    <title>View Questions</title>
+ 
+    <script>
+        function hidePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        function showPopup() {
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function hidePopup1() {
+            document.getElementById("popup1").style.display = "none";
+        }
+
+        function showPopup1() {
+            document.getElementById("popup1").style.display = "block";
+        }
+
+        function hidePopupSubmit() {
+            document.getElementById("popup-submit").style.display = "none";
+        }
+
+        function showPopupSubmit() {
+            document.getElementById("popup-submit").style.display = "block";
+            
+        }
+
+        function logOut() {
+            alert("Successfully logged out");
+        }
+
+        function logOut1() {
+            alert("Successfully logged out");
+        }
+
+        window.onload = function() {
+            const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+            const container = document.getElementById('questions-container');
+            let totalQuestions = questions.length;
+            let correctAnswers = 0;
+
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question-section';
+
+                const questionText = document.createElement('h3');
+                questionText.textContent = `Question ${index + 1}: ${q.questionText}`;
+
+                const optionsContainer = document.createElement('div');
+                optionsContainer.className = 'options-container';
+
+                q.options.forEach((option, i) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'option-item';
+
+                    const radioInput = document.createElement('input');
+                    radioInput.type = 'radio';
+                    radioInput.name = `question-${index}`;
+                    radioInput.value = option;
+                    radioInput.id = `q${index}-o${i}`;
+
+                    const label = document.createElement('label');
+                    label.htmlFor = radioInput.id;
+                    label.textContent = option;
+
+                    optionDiv.appendChild(radioInput);
+                    optionDiv.appendChild(label);
+
+                    optionsContainer.appendChild(optionDiv);
+                });
+
+                const answerText = document.createElement('p');
+                answerText.className = 'answer-text';
+
+                questionDiv.appendChild(questionText);
+                questionDiv.appendChild(optionsContainer);
+                questionDiv.appendChild(answerText);
+
+                container.appendChild(questionDiv);
+            });
+
+            // Add the submit button
+            const submitButton = document.createElement('button');
+            submitButton.textContent = 'Submit Answers';
+            submitButton.addEventListener('click', function() {
+                showPopupSubmit();
+            });
+
+            container.appendChild(submitButton);
+
+            if (questions.length === 0) {
+                container.innerHTML = '<p>No questions available.</p>';
+            }
+        }
+
+        function submitAnswers() {
+            const questions = JSON.parse(localStorage.getItem('questions') || '[]');
+            let correctAnswers = 0;
+            const totalQuestions = questions.length;
+
+            questions.forEach((q, index) => {
+                const selectedRadio = document.querySelector(`input[name="question-${index}"]:checked`);
+                if (selectedRadio && selectedRadio.value === q.answer) {
+                    correctAnswers++;
+                    document.querySelector(`input[name="question-${index}"][value="${q.answer}"]`).nextElementSibling.classList.add('correct');
+                } else {
+                    document.querySelectorAll(`input[name="question-${index}"]`).forEach(input => {
+                        if (input.value === q.answer) {
+                            input.nextElementSibling.classList.add('correct');
+                        }
+                    });
+                }
+            });
+
+            // alert(`You got ${correctAnswers} out of ${totalQuestions} correct.`);
+            const user = { correct: correctAnswers,outof: totalQuestions};
+                const userJson = JSON.stringify(user);
+                localStorage.setItem('user', userJson);
+            hidePopupSubmit();
+        }
+    </script>
+</head>
+
+<body>
+    <div class="right-contain">
+        <div class="q-c">
+            <div class="quiz">
+                <p>QUIZ CREATION</p>
+            </div>
+            <div class="create">
+                <ul>
+                    <li><a href="#" onclick="showPopup()">Cancel&nbsp;Test</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>View Questions and Answers</h1>
+        <div id="questions-container">
+            <!-- Questions will be displayed here -->
+        </div>
+    </div>
+    <div class="pop" id="popup">
+        <div class="mode">
+            <p>Are you sure you want to cancel the test?</p>
+            <button onclick="hidePopup()">No</button>
+            <a href="user.html"><button onclick="logOut()">Yes</button></a>
+        </div>
+    </div>
+    <div class="pop1" id="popup1">
+        <div class="mode1">
+            <p>Are you sure you want to cancel the test?</p>
+            <button onclick="hidePopup1()">No</button>
+            <a href="user.html"><button onclick="logOut1()">Yes</button></a>
+        </div>
+    </div>
+    <div class="pop-submit" id="popup-submit">
+        <div class="mode-submit">
+            <p>Are you sure you want to submit your answers?</p>
+            <button onclick="hidePopupSubmit()">No</button>
+            <!-- <button onclick="submitAnswers()">Yes</button> -->
+            <button ><a href="feedback.html" onclick="submitAnswers()">Yes</a></button>
+        </div>
+    </div>
+</body>
+</html>

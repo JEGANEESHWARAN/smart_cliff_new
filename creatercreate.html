@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            font-family:'Poppins',sans-serif;
+        }
+        body{
+            /* background: linear-gradient(darkcyan,honeydew); */
+            background-color: honeydew;
+            
+        }
+        
+.head{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0px 2px 5px rgb(178, 175, 175); 
+    background-color: white;
+}
+.home-img img {
+    height: 50%;
+    justify-content: center;
+    width: 40%;
+}
+table,tr{
+    height: 70px;
+}
+        table,
+    td {
+        border-bottom: 2px solid black;
+        border-color: rgb(186, 186, 186);
+        background-color: white;
+        border-style: 1px solid;
+        height: 100%;
+    }
+table{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+ 
+}
+h1{
+    text-align: center;
+}
+    #hits {
+        color: white;
+        background-color: rgba(37, 20, 224, 0.505);
+        text-align: center;
+    }
+
+    #rb {
+        background-color: rgb(210, 214, 210);
+    }
+
+    #vc {
+        color: rgb(4, 0, 255);
+        
+    }
+    #low{
+        background-color: lightgreen;
+    }
+    #rb input{
+        color: white;
+        background-color: blue;
+        width: 70%;
+        height: 50%;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+  #tcc2,#tcc3{
+   background-color:rgb(210, 214, 210);
+  }
+    @media screen and (max-width:600px){
+        table{
+            width: 100%;
+            height: 70px;
+            font-size: 0.4rem;
+        }
+        #rb input{
+            width: 50%;
+            font-size: 0.4rem;
+        }
+        
+    }
+    </style>
+    <script>
+        window.onload=function(){
+         const storedUserJson = localStorage.getItem('user');
+            if (storedUserJson) {
+                const storedUser = JSON.parse(storedUserJson);
+                document.getElementById("tcc").innerHTML=storedUser.title;
+                document.getElementById("tcc1").innerHTML=storedUser.cate;
+                document.getElementById("tcc2").innerHTML=storedUser.date;
+                document.getElementById("tcc3").innerHTML=storedUser.mark;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="head">
+        <div class="home-img">
+            <img src="./images/logoo.png" alt=" pls Wait ...">
+        </div>
+        <div class="hi">
+            <h3>Online Assessment</h3>
+        </div></div>.
+    <h1></h1>
+    <center>
+    <div>
+        <table>
+            
+            <tr id="rb">
+                <td id="low">S.no</td>
+                <td id="low">Title name
+                </td>
+                <td id="low">Categories</td>
+                <td id="hits">Date</td>
+           
+                <td id="hits">Total mark</td>
+                <td id="hits">View test</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td id="tc">HTML
+                </td>
+                <td>Programming</td>
+                <td id="rb">23-06-2024</td>
+                <td id="rb">100</td>
+                <td id="rb"><a href="adminqustioncreate.html"><input type="submit" value="View"></a></td>
+                
+            </tr>
+            <tr>
+                <td>2</td>
+                <td id="tc"> Verbal Reasoning
+                </td>
+                <td>
+                    Verbal and Reasoning</td>
+                <td id="rb">23-06-2024</td>
+                <td id="rb">50</td>
+                <td id="rb"><a href=""><input type="submit" value="View"></a></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td id="tc">Programming quizes
+                </td>
+                <td>Programming</td>
+                <td id="rb">23-06-2024</td>
+                <td id="rb">30</td>
+              <td id="rb"><a href=""><input type="submit" value="View"></a></td>
+
+            </tr>
+            <tr>
+                <td>4</td>
+               <td id="tc">Data Structure
+                </td>
+                <td>
+                    Engineering Online Tests</td>
+                    <td id="rb">23-06-2024</td>
+                    <td id="rb">100</td>
+               <td id="rb"><a href=""><input type="submit" value="View"></a></td>
+               
+                </td>
+                <tr>
+                    <td>5</td>
+                    <td id="tcc"></td>
+                    <td id="tcc1"></td>
+                    <td id="tcc2"></td>
+                    <td id="tcc3"></td>
+               <td id="rb"><a href="questioncreation.html"><input type="submit" value="View"></a></td>
+
+            </tr>
+            
+            
+        </table>
+    </div></center>
+</body>
+</html>
